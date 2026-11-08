@@ -59,7 +59,7 @@ export function Desktop() {
   const [ready, setReady] = useState(false);
   const [compact, setCompact] = useState(false);
   const [notice, setNotice] = useState(true);
-  const [now, setNow] = useState<string>("\u2013\u2013:\u2013\u2013");
+  const [now, setNow] = useState<string>("––:––");
   const frameRef = useRef<HTMLDivElement>(null);
   const layoutRef = useRef(layout);
   const compactRef = useRef(compact);
