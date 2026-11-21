@@ -3,7 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Veilan";
+const APP_NAME = "Veilan OS — 让灵感，自在发生";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -13,9 +13,10 @@ export const Route = createRootRoute({
       { title: APP_NAME },
       {
         name: "description",
-        content: "Veilan，新生操作系统。一台更安静的电脑。",
+        content:
+          "一个轻盈、专注、恰到好处的桌面。在浏览器中体验 VEILAN OS，让系统退后一步，让你喜欢的事走到前面。",
       },
-      { name: "theme-color", content: "#ffffff" },
+      { name: "theme-color", content: "#fafafa" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

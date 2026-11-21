@@ -91,7 +91,9 @@ export function Machine() {
       <div className="mx-auto grid w-full min-w-0 max-w-6xl gap-10 px-5 lg:grid-cols-2 lg:items-start">
         <div className="min-w-0">
           <p className="text-sm font-medium text-veil-ink">{t.machine.kicker}</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">{t.machine.title}</h2>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
+            {t.machine.title}
+          </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-muted">{t.machine.lead}</p>
           <form
             className="mt-8 grid gap-5"
@@ -127,7 +129,7 @@ export function Machine() {
             <ChoiceRow
               label={t.machine.disk}
               value={state.disk}
-              options={[16, 32, 128]}
+              options={[16, 32, 64]}
               unit="GB"
               onChange={(disk) => setState((prev) => ({ ...prev, disk }))}
             />
@@ -163,7 +165,9 @@ export function Machine() {
             <button type="button" className="btn btn-ink" onClick={() => void copySheet()}>
               {copied === "ok" ? t.machine.copied : t.machine.copy}
             </button>
-            <p className="text-sm text-muted">{copied === "fail" ? t.machine.copyFail : t.machine.local}</p>
+            <p className="text-sm text-muted">
+              {copied === "fail" ? t.machine.copyFail : t.machine.local}
+            </p>
           </div>
         </div>
       </div>
