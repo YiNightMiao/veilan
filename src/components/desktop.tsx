@@ -405,7 +405,7 @@ export function Desktop({ immersive = false }: { immersive?: boolean }) {
                 toggleVeil={toggleVeil}
                 wallpaper={wallpaper}
                 setWallpaper={setWallpaper}
-                reset={() => setLayout(INITIAL)}
+                reset={() => setLayout(prev => ({ ...INITIAL, veil: prev.veil }))}
               />
             </div>
           </section>
