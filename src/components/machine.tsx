@@ -39,21 +39,19 @@ export function Machine() {
   const [copied, setCopied] = useState<"idle" | "ok" | "fail">("idle");
 
   useEffect(() => {
-    const raw = localStorage.getItem(STORE);
-    if (raw) {
-      try {
+    try {
+      const raw = localStorage.getItem(STORE);
+      if (raw) {
         const parsed: unknown = JSON.parse(raw);
         if (isState(parsed)) setState({ ...parsed, name: parsed.name.slice(0, 40) });
-      } catch {
-        /* keep defaults */
       }
-    }
+    } catch { /* Keep defaults when persistence is unavailable. */ }
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
-    localStorage.setItem(STORE, JSON.stringify(state));
+    try { localStorage.setItem(STORE, JSON.stringify(state)); } catch { /* Persistence is optional. */ }
   }, [state, ready]);
 
   const verdict = judge(state.mem, state.disk);

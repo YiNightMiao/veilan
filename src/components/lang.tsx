@@ -14,14 +14,16 @@ export function LangProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("veilan-lang");
-    if (saved === "en" || saved === "zh") setLang(saved);
+    try {
+      const saved = localStorage.getItem("veilan-lang");
+      if (saved === "en" || saved === "zh") setLang(saved);
+    } catch { /* Continue with an in-memory preference when storage is blocked. */ }
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
-    localStorage.setItem("veilan-lang", lang);
+    try { localStorage.setItem("veilan-lang", lang); } catch { /* Persistence is optional. */ }
     document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
   }, [lang, ready]);
 
