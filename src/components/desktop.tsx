@@ -188,6 +188,7 @@ export function Desktop({ immersive = false }: { immersive?: boolean }) {
     });
   }
   function maximize(id: AppId) {
+    if (compact) return;
     setLayout((prev) => ({
       ...prev,
       wins: { ...prev.wins, [id]: { ...prev.wins[id], max: !prev.wins[id].max } },
@@ -376,6 +377,7 @@ export function Desktop({ immersive = false }: { immersive?: boolean }) {
                 </button>
                 <button
                   className="traffic-max"
+                  disabled={compact}
                   aria-label={`${labels.maximize} ${t.desktop.apps[id]}`}
                   onClick={() => maximize(id)}
                 >

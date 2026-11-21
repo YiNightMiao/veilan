@@ -1034,6 +1034,7 @@
   .traffic-max {
     background: #a9c6a5;
   }
+  .traffic-max:disabled { opacity: .4; cursor: default; }
   .window-toolbar-icon {
     position: absolute;
     right: 13px;
