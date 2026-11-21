@@ -1203,18 +1203,23 @@
     color: #b2a9be;
   }
   .terminal-app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     padding: 16px;
     color: #bdb5cf;
-    font-family: "SFMono-Regular", Consolas, monospace;
+    font-family: "SFMono-Regular", Consolas, "Noto Sans SC", monospace;
     font-size: 10px;
     min-height: 100%;
   }
+  .terminal-output { min-height: 0; flex: 1; overflow-y: auto; }
   .terminal-output p {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
     line-height: 1.8;
   }
   .terminal-app form {
+    flex-shrink: 0;
     display: flex;
     gap: 8px;
     align-items: baseline;
@@ -1235,6 +1240,7 @@
     outline-offset: 1px;
   }
   .terminal-hint {
+    flex-shrink: 0;
     font-family: var(--font-sans);
     color: #726b81;
     font-size: 8px;
