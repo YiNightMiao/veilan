@@ -39,21 +39,25 @@ export function Machine() {
   const [copied, setCopied] = useState<"idle" | "ok" | "fail">("idle");
 
   useEffect(() => {
-    const raw = localStorage.getItem(STORE);
-    if (raw) {
-      try {
+    try {
+      const raw = localStorage.getItem(STORE);
+      if (raw) {
         const parsed: unknown = JSON.parse(raw);
         if (isState(parsed)) setState({ ...parsed, name: parsed.name.slice(0, 40) });
-      } catch {
-        /* keep defaults */
       }
+    } catch {
+      /* Keep defaults when persistence is unavailable. */
     }
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
-    localStorage.setItem(STORE, JSON.stringify(state));
+    try {
+      localStorage.setItem(STORE, JSON.stringify(state));
+    } catch {
+      /* Persistence is optional. */
+    }
   }, [state, ready]);
 
   const verdict = judge(state.mem, state.disk);
@@ -91,7 +95,9 @@ export function Machine() {
       <div className="mx-auto grid w-full min-w-0 max-w-6xl gap-10 px-5 lg:grid-cols-2 lg:items-start">
         <div className="min-w-0">
           <p className="text-sm font-medium text-veil-ink">{t.machine.kicker}</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">{t.machine.title}</h2>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
+            {t.machine.title}
+          </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-muted">{t.machine.lead}</p>
           <form
             className="mt-8 grid gap-5"
@@ -127,7 +133,7 @@ export function Machine() {
             <ChoiceRow
               label={t.machine.disk}
               value={state.disk}
-              options={[16, 32, 128]}
+              options={[16, 32, 64, 128]}
               unit="GB"
               onChange={(disk) => setState((prev) => ({ ...prev, disk }))}
             />
@@ -163,7 +169,9 @@ export function Machine() {
             <button type="button" className="btn btn-ink" onClick={() => void copySheet()}>
               {copied === "ok" ? t.machine.copied : t.machine.copy}
             </button>
-            <p className="text-sm text-muted">{copied === "fail" ? t.machine.copyFail : t.machine.local}</p>
+            <p className="text-sm text-muted">
+              {copied === "fail" ? t.machine.copyFail : t.machine.local}
+            </p>
           </div>
         </div>
       </div>
@@ -187,7 +195,12 @@ function ChoiceRow({
   return (
     <fieldset>
       <legend className="mb-2 text-sm font-medium">{label}</legend>
-      <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={label}>
+      <div
+        className="grid gap-2"
+        style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
+        role="radiogroup"
+        aria-label={label}
+      >
         {options.map((option) => (
           <button
             key={option}
