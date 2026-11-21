@@ -128,8 +128,19 @@ export function Desktop({ immersive = false }: { immersive?: boolean }) {
     if (ready) save("veilan-wallpaper", wallpaper);
   }, [wallpaper, ready]);
   useEffect(() => {
-    if (ready && note !== null) save("veilan-note", note);
-  }, [note, ready]);
+    const syncNote = (event: StorageEvent) => {
+      if (event.key !== "veilan-note") return;
+      const value = readSaved<unknown>("veilan-note", null);
+      if (typeof value === "string" || value === null) setNote(value);
+    };
+    window.addEventListener("storage", syncNote);
+    return () => window.removeEventListener("storage", syncNote);
+  }, []);
+
+  function editNote(value: string) {
+    setNote(value);
+    save("veilan-note", value);
+  }
   useEffect(() => {
     if (!notice) return;
     const timer = setTimeout(() => setNotice(false), 8000);
@@ -389,7 +400,7 @@ export function Desktop({ immersive = false }: { immersive?: boolean }) {
                     ? "给灵感留一点空白。\n\n窗外的光，刚泡好的咖啡，\n还有一个不被打扰的下午。\n\n今天，想做点什么？"
                     : "A little room for inspiration.\n\nThe afternoon light. A fresh coffee.\nA moment that is entirely yours.\n\nWhat will you make today?")
                 }
-                setNote={setNote}
+                setNote={editNote}
                 veil={layout.veil}
                 toggleVeil={toggleVeil}
                 wallpaper={wallpaper}
