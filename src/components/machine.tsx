@@ -127,7 +127,7 @@ export function Machine() {
             <ChoiceRow
               label={t.machine.disk}
               value={state.disk}
-              options={[16, 32, 64]}
+              options={[16, 32, 64, 128]}
               unit="GB"
               onChange={(disk) => setState((prev) => ({ ...prev, disk }))}
             />
@@ -189,7 +189,7 @@ function ChoiceRow({
   return (
     <fieldset>
       <legend className="mb-2 text-sm font-medium">{label}</legend>
-      <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={label}>
+      <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }} role="radiogroup" aria-label={label}>
         {options.map((option) => (
           <button
             key={option}
