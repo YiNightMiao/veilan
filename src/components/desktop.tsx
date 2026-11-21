@@ -451,7 +451,15 @@ export function Desktop({ immersive = false }: { immersive?: boolean }) {
       </div>
       {immersive && (
         <div className="demo-help">
-          <span>{zh ? "拖动窗口，自在探索" : "Drag a window. Make it yours."}</span>
+          <span>
+            {compact
+              ? zh
+                ? "轻点程序坞，切换应用"
+                : "Tap the dock to switch apps."
+              : zh
+                ? "拖动窗口，自在探索"
+                : "Drag a window. Make it yours."}
+          </span>
           <button onClick={() => setSearch(true)}>
             <kbd>⌘ / Ctrl K</kbd>
           </button>
