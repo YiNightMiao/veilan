@@ -757,7 +757,13 @@ function TerminalApp({ veil, note }: { veil: boolean; note: string }) {
   }
   return (
     <div className="terminal-app">
-      <div className="terminal-output" role="log" aria-live="polite">
+      <div
+        className="terminal-output"
+        role="log"
+        aria-live="polite"
+        aria-label={lang === "zh" ? "终端输出" : "Terminal output"}
+        tabIndex={0}
+      >
         {lines.map((line, i) => (
           <p key={i}>{line || "\u00a0"}</p>
         ))}
