@@ -329,10 +329,10 @@ export function Desktop({ immersive = false }: { immersive?: boolean }) {
       )}
       {APPS.map((id) => {
         const win = layout.wins[id];
-        if (!win.open || (compact && id !== layout.focus)) return null;
         return (
           <section
             key={id}
+            hidden={!win.open || (compact && id !== layout.focus)}
             aria-label={t.desktop.apps[id]}
             className={cn(
               "win",
