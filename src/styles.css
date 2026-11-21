@@ -965,7 +965,9 @@
       box-shadow 0.35s;
     animation: window-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
-  .win[hidden] { display: none; }
+  .win[hidden] {
+    display: none;
+  }
   .win.is-veiled {
     opacity: 0.72;
     filter: saturate(0.7) blur(0.5px);
@@ -1034,7 +1036,10 @@
   .traffic-max {
     background: #a9c6a5;
   }
-  .traffic-max:disabled { opacity: .4; cursor: default; }
+  .traffic-max:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
   .window-toolbar-icon {
     position: absolute;
     right: 13px;
@@ -1213,7 +1218,11 @@
     font-size: 10px;
     min-height: 100%;
   }
-  .terminal-output { min-height: 0; flex: 1; overflow-y: auto; }
+  .terminal-output {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+  }
   .terminal-output p {
     white-space: pre-wrap;
     overflow-wrap: anywhere;

@@ -407,7 +407,7 @@ export function Desktop({ immersive = false }: { immersive?: boolean }) {
                 toggleVeil={toggleVeil}
                 wallpaper={wallpaper}
                 setWallpaper={setWallpaper}
-                reset={() => setLayout(prev => ({ ...INITIAL, veil: prev.veil }))}
+                reset={() => setLayout((prev) => ({ ...INITIAL, veil: prev.veil }))}
               />
             </div>
           </section>
@@ -552,7 +552,7 @@ function WindowBody({
   setWallpaper,
   reset,
 }: BodyProps) {
-  const { t, lang } = useI18n();
+  const { lang } = useI18n();
   const zh = lang === "zh";
   const [folder, setFolder] = useState("home");
   const [selectedFile, setSelectedFile] = useState<string | null>(null);

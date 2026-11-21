@@ -45,13 +45,19 @@ export function Machine() {
         const parsed: unknown = JSON.parse(raw);
         if (isState(parsed)) setState({ ...parsed, name: parsed.name.slice(0, 40) });
       }
-    } catch { /* Keep defaults when persistence is unavailable. */ }
+    } catch {
+      /* Keep defaults when persistence is unavailable. */
+    }
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
-    try { localStorage.setItem(STORE, JSON.stringify(state)); } catch { /* Persistence is optional. */ }
+    try {
+      localStorage.setItem(STORE, JSON.stringify(state));
+    } catch {
+      /* Persistence is optional. */
+    }
   }, [state, ready]);
 
   const verdict = judge(state.mem, state.disk);
@@ -189,7 +195,12 @@ function ChoiceRow({
   return (
     <fieldset>
       <legend className="mb-2 text-sm font-medium">{label}</legend>
-      <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }} role="radiogroup" aria-label={label}>
+      <div
+        className="grid gap-2"
+        style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
+        role="radiogroup"
+        aria-label={label}
+      >
         {options.map((option) => (
           <button
             key={option}

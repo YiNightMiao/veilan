@@ -27,12 +27,25 @@ export function Nav() {
     ["release", t.nav.release],
   ];
   return (
-    <header className="topbar" onKeyDown={event => { if (event.key === "Escape" && open) { setOpen(false); trigger.current?.focus(); } }}>
+    <header
+      className="topbar"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          trigger.current?.focus();
+        }
+      }}
+    >
       <div className="nav-inner">
         <a href="#top" aria-label="Veilan OS">
           <Brand />
         </a>
-        <nav ref={menu} id="site-navigation" className={`nav-links ${open ? "nav-open" : ""}`} aria-label="Veilan">
+        <nav
+          ref={menu}
+          id="site-navigation"
+          className={`nav-links ${open ? "nav-open" : ""}`}
+          aria-label="Veilan"
+        >
           {links.map(([id, label]) => (
             <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
               {label}
