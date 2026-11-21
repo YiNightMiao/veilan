@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useI18n } from "@/components/lang";
 
@@ -16,18 +16,23 @@ export function Brand() {
 export function Nav() {
   const { t, lang, setLang } = useI18n();
   const [open, setOpen] = useState(false);
+  const menu = useRef<HTMLElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (open) menu.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+  }, [open]);
   const links = [
     ["desktop", t.nav.desktop],
     ["principles", t.nav.principles],
     ["release", t.nav.release],
   ];
   return (
-    <header className="topbar">
+    <header className="topbar" onKeyDown={event => { if (event.key === "Escape" && open) { setOpen(false); trigger.current?.focus(); } }}>
       <div className="nav-inner">
         <a href="#top" aria-label="Veilan OS">
           <Brand />
         </a>
-        <nav className={`nav-links ${open ? "nav-open" : ""}`} aria-label="Veilan">
+        <nav ref={menu} id="site-navigation" className={`nav-links ${open ? "nav-open" : ""}`} aria-label="Veilan">
           {links.map(([id, label]) => (
             <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
               {label}
@@ -48,6 +53,8 @@ export function Nav() {
           </a>
           <button
             className="mobile-menu"
+            ref={trigger}
+            aria-controls="site-navigation"
             aria-label={open ? t.nav.close : t.nav.open}
             aria-expanded={open}
             onClick={() => setOpen(!open)}
